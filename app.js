@@ -11,7 +11,7 @@ const apiService = "https://api-takumi.mihoyo.com/game_record/app/genshin/api/da
 require('./lib/global').init();
 
 app.get('/resin', function (req, res) {
-	console.log('[%s][Get] /resin ',moment().zone('+08:00').format());
+	console.log('[%s][Get] /resin ',moment().utcOffset('+08:00').format());
 	if (Math.floor(Date.now() / 1000) - cache['last_update'] > 300) {
 		console.log('Updating Data ...');
 		rp({
@@ -40,7 +40,7 @@ app.get('/resin', function (req, res) {
 				});
 				cache['finished_expedition_num'] = finished_expedition_num;
 				cache['last_update'] = Math.floor(Date.now() / 1000);
-				cache['last_update_format'] = moment().zone('+08:00').format();
+				cache['last_update_format'] = moment().utcOffset('+08:00').format();
 				
 				var cacheStr = JSON.stringify(cache);
 				fs.writeFile('./cache.json', cacheStr, function (err) {
