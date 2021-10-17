@@ -1,5 +1,5 @@
 {
-  "name": "kwgt_remote",
+  "name": "genshin_daily_helper",
   "version": "1.0.0",
   "description": "A tool for kwgt to get genshin impact game info.",
   "main": "app.js",
