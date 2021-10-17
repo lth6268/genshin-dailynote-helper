@@ -1,0 +1,6 @@
+node_modules/
+cache.json
+config.json
+data.txt
+package-lock.json
+yarn.lock

@@ -1,0 +1,17 @@
+{
+  "name": "kwgt_remote",
+  "version": "1.0.0",
+  "description": "A tool for kwgt to get genshin impact game info.",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^3.2.1",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "md5": "^2.3.0",
+    "moment": "^2.29.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
+  "author": "Hao_cen",
+  "license": "MIT"
+}
