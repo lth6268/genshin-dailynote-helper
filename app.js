@@ -6,7 +6,9 @@ const fs = require('fs');
 const moment = require('moment');
 const cache = require('./cache.json');
 const port = 12583;
-const apiService = "https://api-takumi.mihoyo.com/game_record/app/genshin/api/dailyNote?role_id=100293504&server=cn_gf01";
+const config = require('./config.json')
+const uid = config['uid']
+const apiService = `https://api-takumi.mihoyo.com/game_record/app/genshin/api/dailyNote?role_id=${uid}&server=cn_gf01`;
 
 require('./lib/global').init();
 
