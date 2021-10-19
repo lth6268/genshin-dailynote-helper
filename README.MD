@@ -31,7 +31,7 @@ Cookie 获取参考
 - 获取 `cookie` 中 `login_ticket` 项
 - 确认已经复制好 `config.json`
 - 运行 `node cookie.js <login_ticket>`  注意：将 `<login_ticket>` 替换为上一步获取的值
-- 接下来程序将自动修wan改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
+- 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
 [2021.10.19] 
@@ -40,5 +40,5 @@ Cookie 获取参考
 - 添加cookie的获取说明
 - 开始记录更新日志
 ## Thanks 感谢名单
-@Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`　　
+@Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`  
 部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来
