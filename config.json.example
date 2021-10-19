@@ -1,4 +1,6 @@
 {
-    "uid": " place your uid here. ",
-    "cookie":" place your cookie here. "
+    "port": 12583,
+    "cache_time": 300,
+    "cookie":" place your cookie here. ",
+    "game_biz": "hk4e_cn"
 }
