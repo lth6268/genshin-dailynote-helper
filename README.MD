@@ -4,20 +4,26 @@
 
 ## Usage | 使用说明
 - Clone 本仓库到本地
+- 安装运行库 `Node JS`
 - 复制 `config.json.example` 为 `config.json`
 - 修改 `config.json` 的内容
 - 运行主程序
 ```bash
-yarn
+yarn | npm install
 node app.js
 ```
 - 至此服务端部署完成 
 
 ## Notice | 注意事项
+- 需要开启米游社－我的－我的角色－实时便笺（jian）功能
 - 请不要将你的cookie分享给任何人(config.json)
 - 查询的账号为米游社的默认账号 理论支持所有国内渠道 暂不支持国际服(欢迎pr)
 
-## KWGT sample (text) | KWGT 参考代码（文本）
+## KWGT sample | KWGT 参考代码
+![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
+[Yife_Playte的小部件](https://github.com/YifePlayet/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
+![TextOnly](./pic/kwgt_text.jpg)
+纯文本格式:
 ```
 原粹树脂：$wg(your.url/resin, json, .resin)$ 
 每日委托：$wg(your.url/resin, json, .task)$ 
@@ -37,8 +43,11 @@ Cookie 获取参考
 [2021.10.19] 
 - 增加自适应角色获取
 - 修复cache不存在的报错
+- 修复首次启动时cache错误的缓存导致的无法正常运行
+- 添加其他优秀的KWGT小部件地址
 - 添加cookie的获取说明
 - 开始记录更新日志
-## Thanks 感谢名单
+## Thanks | 感谢名单
 @Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`  
-部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来
+部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来  
+@YifePlayte 积极反馈bug 和 设计了好看的kwgt部件
