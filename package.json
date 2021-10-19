@@ -6,12 +6,11 @@
   "dependencies": {
     "async": "^3.2.1",
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "util": "^0.12.4"
+    "superagent": "^6.1.0"
   },
   "author": "Hao_cen",
   "license": "MIT"

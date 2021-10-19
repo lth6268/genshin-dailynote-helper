@@ -1,8 +1,8 @@
-# Genshin DailyNote Helper
+# Genshin DailyNote Helper | 原神每日助手
 基于 KWGT 的 原神个人信息 显示  
 此仓库为服务端实现
 
-## Usage 使用说明
+## Usage | 使用说明
 - Clone 本仓库到本地
 - 复制 `config.json.example` 为 `config.json`
 - 修改 `config.json` 的内容
@@ -11,19 +11,34 @@
 yarn
 node app.js
 ```
-- 编写 `KWGT` 小部件 
+- 至此服务端部署完成 
 
+## Notice | 注意事项
+- 请不要将你的cookie分享给任何人(config.json)
+- 查询的账号为米游社的默认账号 理论支持所有国内渠道 暂不支持国际服(欢迎pr)
+
+## KWGT sample (text) | KWGT 参考代码（文本）
 ```
-KWGT 参考代码（文本）
--------------------------------------------
 原粹树脂：$wg(your.url/resin, json, .resin)$ 
 每日委托：$wg(your.url/resin, json, .task)$ 
 探索派遣：$wg(your.url/resin, json, .expedition)$
 最后更新：$wg(your.url/resin, json, .last_update)$
 ```
-## Notice　注意事项
-- 请不要将你的cookie分享给任何人(config.json)
-- 查询的账号为米游社的默认账号 理论支持所有国内渠道 暂不支持国际服(欢迎pr)
+
+## Get cookie | 获取 Cookie 
+Cookie 获取参考 
+- 访问 [https://user.mihoyo.com](https://user.mihoyo.com) 并登录账号 如果已经登陆请退出后重新登录
+- 获取 `cookie` 中 `login_ticket` 项
+- 确认已经复制好 `config.json`
+- 运行 `node cookie.js <login_ticket>`  注意：将 `<login_ticket>` 替换为上一步获取的值
+- 接下来程序将自动修wan改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
+
+## Update Log | 更新日志
+[2021.10.19] 
+- 增加自适应角色获取
+- 修复cache不存在的报错
+- 添加cookie的获取说明
+- 开始记录更新日志
 ## Thanks 感谢名单
 @Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`　　
 部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来
