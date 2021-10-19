@@ -5,6 +5,7 @@ const rp = require('request-promise');
 const fs = require('fs');
 const moment = require('moment');
 const util = require('util');
+const utils = require('./lib/utils.js');
 // const cache = require('./cache.json');
 const config = require('./config.json');
 const dailyNoteUrl = `https://api-takumi.mihoyo.com/game_record/app/genshin/api/dailyNote?role_id=%s&server=%s`;
@@ -20,14 +21,27 @@ const init = async function() {
 	cache = require('./cache.json');
 
 	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
-		console.log("玩家数据不存在，正在尝试获取...");
+		log("缓存中未包含玩家信息，正在尝试获取...");
 		await refPlayer();
+	} 
+	delete require.cache[require.resolve('./cache.json')];
+	cache = require('./cache.json');
+	while (cache['game_uid'] == undefined) {
+		log('等待缓存写出到文件...');
+		await utils.randomSleepAsync();
+		log("重新载入缓存...");
+		delete require.cache[require.resolve('./cache.json')];
+		cache = require('./cache.json');
 	}
 	app.get('/resin', function (req, res) {
-		console.log('[%s][Get] /resin ',moment().utcOffset('+08:00').format());
+		// cache = require('./cache.json');
+		log('[Get] /resin');
 		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
-			console.log('Updating Data ...');
+			log('本地缓存未找到或已过期 从远程更新数据 ...');
+			// cache = undefined;
+			// var cache1 = require("./cache.json");
 			var apiService = util.format(dailyNoteUrl,cache['game_uid'],cache['region']);
+			// console.log(cache1);
 			rp({
 				headers: getHeader(apiService),
 				resolveWithFullResponse: true,
@@ -35,7 +49,7 @@ const init = async function() {
 				uri: apiService,
 			}).then(function (response) {
 				if (response.statusCode != 200) {
-					console.log('failed.')
+					log('获取数据失败！')
 					res.status(404);
 				} else {
 					let feedback = JSON.parse(response.body).data;
@@ -61,7 +75,7 @@ const init = async function() {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log('Resin cache update -',Math.floor(Date.now() / 1000));
+							log('本地数据已更新');
 							genResult(res);
 						}
 					});
@@ -72,16 +86,19 @@ const init = async function() {
 				res.status(404);
 			});
 		} else {
-			console.log('Sending Data from cache...');
+			log('从本地缓存发送数据...');
 			genResult(res);
 		}
 	});
 
 	app.listen(config.port, '0.0.0.0', function () {
-		console.log('Application is listening on port ' + config.port + '!')
+		log('初始化完成！开始在端口  ' + config.port + ' 监听请求！')
 	});
 }
-init();
+
+function log(msg) {
+	console.log('[%s] %s',moment().utcOffset('+08:00').format(),msg);
+}
 
 function genResult(res) {
 	var result = {};
@@ -100,6 +117,7 @@ function genResult(res) {
 	result['last_update'] = cache['last_update_format'];
 	res.status(200);
 	res.send(JSON.stringify(result));
+	log('数据已发送');
 }
 
 const refPlayer = async function() {
@@ -119,8 +137,9 @@ const refPlayer = async function() {
 				cache['region'] = playerData.region;
 				cache['game_uid'] = playerData.game_uid;
 				fs.writeFileSync('./cache.json',JSON.stringify(cache));
-				console.log('Refresh player info [%s - %s]',cache['region'],cache['game_uid']);	
+				log(util.format('玩家数据已更新 region:%s uid:%s',cache['region'],cache['game_uid']));	
 			}
 		  });
 	});
 }
+init();
