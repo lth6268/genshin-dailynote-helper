@@ -92,7 +92,7 @@ const init = async function() {
 	});
 
 	app.listen(config.port, '0.0.0.0', function () {
-		log('初始化完成！开始在端口  ' + config.port + ' 监听请求！')
+		log('初始化完成！开始在端口 ' + config.port + ' 监听请求！')
 	});
 }
 
