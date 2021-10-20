@@ -26,7 +26,8 @@ node app.js
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
 [Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
-![TextOnly](./pic/kwgt_text.jpg)
+![TextOnly](./pic/kwgt_text.jpg)  
+***注意：仅包含文字部分 背景请自行设置***  
 纯文本格式:
 ```
 原粹树脂：$wg(your.url/resin, json, .resin)$ 
@@ -62,5 +63,5 @@ Cookie 获取参考
 ## Thanks | 感谢名单
 @Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`  
 部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来  
-@YifePlayte 积极反馈bug 和 设计了好看的kwgt部件
-给予star支持的你
+@YifePlayte 积极反馈bug 和 设计了好看的kwgt部件  
+给予star支持的你  

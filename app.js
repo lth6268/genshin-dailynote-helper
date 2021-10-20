@@ -89,9 +89,9 @@ function genFormatedResponse(res) {
 	result['task'] = cache['finished_task_num'] + ' / ' + cache['total_task_num'];
 	if (cache['finished_task_num'] == cache['total_task_num'] ){
 		if (cache['is_extra_task_reward_received']) {
-			result['task'] = result['task'] + '  额外奖励已领取';
+			result['task'] = result['task'] + '  (额外奖励已领取)';
 		} else {
-			result['task'] = result['task'] + '  额外奖励未领取';
+			result['task'] = result['task'] + '  (额外奖励未领取)';
 		}
 	}
 	result['expedition'] = cache['finished_expedition_num'] + ' / ' + cache['current_expedition_num'] +  ' / ' + cache['max_expedition_num'];
