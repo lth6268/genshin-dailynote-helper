@@ -25,7 +25,7 @@ node app.js
 
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
-[Yife_Playte的小部件](https://github.com/YifePlayet/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
+[Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
 ![TextOnly](./pic/kwgt_text.jpg)
 纯文本格式:
 ```
