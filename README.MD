@@ -19,6 +19,10 @@ node app.js
 - 请不要将你的cookie分享给任何人(config.json)
 - 查询的账号为米游社的默认账号 理论支持所有国内渠道 暂不支持国际服(欢迎pr)
 
+## API | 可用接口
+- `/resin` 获取简易每日数据
+- `/resin/all` 获取官方接口完整数据
+
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
 [Yife_Playte的小部件](https://github.com/YifePlayet/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
@@ -40,6 +44,11 @@ Cookie 获取参考
 - 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
+[2021.10.20]
+- 重构并拆分部分代码 便于后期维护
+- 合并完整数据请求接口
+- 迁移 request 到 superagent
+- 完善文档
 [2021.10.19] 
 - 增加自适应角色获取
 - 修复cache不存在的报错
