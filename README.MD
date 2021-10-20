@@ -22,12 +22,13 @@ node app.js
 ## API | 可用接口
 - `/resin` 获取格式化每日数据
 - `/resin/all` 获取官方接口完整数据
-- `/resin/force_refresh` 强制刷新缓存数据（不会返回结果！）
+- `/resin/force_refresh` 强制刷新缓存数据 **(只会返回刷新是否成功！)**
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
 [Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
 ![TextOnly](./pic/kwgt_text.jpg)  
-***注意：仅包含文字部分 背景请自行设置***  
+> **注意：仅包含文字部分 背景请自行设置**
+
 纯文本格式:
 ```
 原粹树脂：$wg(your.url/resin, json, .resin)$ 
