@@ -20,9 +20,9 @@ node app.js
 - 查询的账号为米游社的默认账号 理论支持所有国内渠道 暂不支持国际服(欢迎pr)
 
 ## API | 可用接口
-- `/resin` 获取简易每日数据
+- `/resin` 获取格式化每日数据
 - `/resin/all` 获取官方接口完整数据
-
+- `/resin/force_refresh` 强制刷新缓存数据（不会返回结果！）
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
 [Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
@@ -47,6 +47,8 @@ Cookie 获取参考
 [2021.10.20]
 - 重构并拆分部分代码 便于后期维护
 - 合并完整数据请求接口
+- 添加强制刷新接口
+- 更改默认格式化文本
 - 迁移 request 到 superagent
 - 完善文档
 
@@ -61,3 +63,4 @@ Cookie 获取参考
 @Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`  
 部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来  
 @YifePlayte 积极反馈bug 和 设计了好看的kwgt部件
+给予star支持的你
