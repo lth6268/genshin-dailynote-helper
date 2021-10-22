@@ -14,6 +14,8 @@ require('./lib/global').init();
 
 const init = async function() {
 
+	await logger.init();
+
 	if(!fs.existsSync('./cache.json')) {
 		fs.writeFileSync('./cache.json',"{}");
 	}
