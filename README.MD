@@ -23,6 +23,7 @@ node app.js
 - `/resin` 获取格式化每日数据
 - `/resin/all` 获取官方接口完整数据
 - `/resin/force_refresh` 强制刷新缓存数据 **(只会返回刷新是否成功！)**
+
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
 [Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
@@ -46,10 +47,12 @@ Cookie 获取参考
 - 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
+[2021.10.22]
+- 添加写出到文件的日志
+
 [2021.10.20]
 - 重构并拆分部分代码 便于后期维护
 - 合并完整数据请求接口
-- 添加强制刷新接口
 - 更改默认格式化文本
 - 迁移 request 到 superagent
 - 完善文档
