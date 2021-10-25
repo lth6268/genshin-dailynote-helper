@@ -7,14 +7,14 @@ const refPlayer = require('./lib/mihoyo/refPlayer.js');
 const getDailyNote = require('./lib/mihoyo/getDailyNote.js');
 
 const config = require('./config.json');
+const e = require('express');
 
 var cache;
+require('./lib/global').init();
 
 const init = async function() {
 
 	await logger.init();
-
-	require('./lib/global').init();
 
 	if(!fs.existsSync('./cache.json')) {
 		fs.writeFileSync('./cache.json',"{}");
@@ -23,9 +23,7 @@ const init = async function() {
 
 	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
-		if (!await refPlayer(false)) {
-			return;
-		}
+		await refPlayer();
 	}
 	reloadCache();
 	while (cache['game_uid'] == undefined) {
@@ -37,7 +35,7 @@ const init = async function() {
 		logger.i('[Get] /resin');
 		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
 			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(cache['region'],cache['game_uid'],false);
+			await getDailyNote(cache['region'],cache['game_uid']);
 		} else {
 			logger.i('从本地缓存发送数据...');
 		}
