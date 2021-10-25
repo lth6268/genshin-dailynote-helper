@@ -16,10 +16,10 @@ const init = async function() {
 
 	await logger.init();
 
-	if(!fs.existsSync('./cache.json')) {
-		fs.writeFileSync('./cache.json',"{}");
+	if(!fs.existsSync('/tmp/cache.json')) {
+		fs.writeFileSync('/tmp/cache.json',"{}");
 	}
-	cache = require('./cache.json');
+	cache = require('/tmp/cache.json');
 
 	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
@@ -74,8 +74,8 @@ const init = async function() {
 
 function reloadCache() {
 	// logger.i("重新载入缓存...");
-	delete require.cache[require.resolve('./cache.json')];
-	cache = require('./cache.json');
+	delete require.cache[require.resolve('/tmp/cache.json')];
+	cache = require('/tmp/cache.json');
 }
 
 function genFormatedResponse(res) {

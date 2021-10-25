@@ -1,6 +1,7 @@
 {
-    "port": 12583,
+    "port": 9000,
     "cache_time": 300,
-    "cookie":" place your cookie here. ",
-    "game_biz": "hk4e_cn"
+    "cookie":" place your cookie here. if use SCF , place your cookie in env 'COOKIE' ",
+    "game_biz": "hk4e_cn",
+    "is_SCF": false
 }
