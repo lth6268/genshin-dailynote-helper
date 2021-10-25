@@ -3,6 +3,7 @@
 此仓库为服务端实现
 
 ## Usage | 使用说明
+### Local Server | 本地服务器
 - Clone 本仓库到本地
 - 安装运行库 `Node JS`
 - 复制 `config.json.example` 为 `config.json`
@@ -13,7 +14,34 @@ yarn | npm install
 node app.js
 ```
 - 至此服务端部署完成 
-
+### SCF | 云函数部署
+>　例子采用腾讯云函数部署，可自行部署到其他环境
+- 从git下载`zip格式`代码到本地
+- 创建一个`Web函数`模式的`云函数`
+- - 环境使用`NodeJS 12`
+- - 代码选择`本地上传zip包` 上传刚刚下载的zip文件
+- - **`环境变量`中设置`COOKIE`的值为你的`cookie`**
+- - `高级设置`中修改`超时时间`为30秒
+- - 下图仅供参考
+- ![scf_1](./pic/scf_1.jpeg)
+- ![scf_2](./pic/scf_2.jpeg)
+- 完成创建后会跳转到`函数配置`界面
+- 打开`函数代码`页面 等待云编辑器加载完成
+- 点击 `终端 -> 新终端`　在下方打开的终端运行下列指令
+```bash
+cd src/genshin-dailynote-helper-main
+yarn
+```
+- 新建 `config.json` 并复制 `config.json.example` 的所有内容过来
+- 修改 `config.json` 的内容
+- - **端口根据不同云服务商修改 腾讯云默认为`9000`**
+- - 需要修改 `is_SCF` 为 `true`
+- - `cookie` 项已移交环境变量无需填写
+- 复制 `scf_bootstrap` 内容到外层同名文件
+- - **同理 该文件仅为腾讯云适用 其他云服务商需要根据实际情况修改**
+- 点击`部署`
+- 根据下方的`访问路径`来访问服务
+- - 如路径为`https://aa.bb.cc/release/` 则访问 `https://aa.bb.cc/release/resin` 其他接口同理
 ## Notice | 注意事项
 - 需要开启米游社－我的－我的角色－实时便笺（jian）功能
 - 请不要将你的cookie分享给任何人(config.json)
@@ -47,6 +75,10 @@ Cookie 获取参考
 - 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
+[2021.10.25]
+- 添加云函数运行模式
+- 编写基础的腾讯云函数部署指引
+
 [2021.10.22]
 - 添加写出到文件的日志
 
