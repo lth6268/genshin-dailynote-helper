@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -6,83 +7,45 @@ const logger = require('./lib/logger.js');
 const refPlayer = require('./lib/mihoyo/refPlayer.js');
 const getDailyNote = require('./lib/mihoyo/getDailyNote.js');
 
-const config = require('./config.json');
+// const config = require('./config.json');
 
 var cache;
 
-const init = async function() {
+const init = async (event,context) => {
 
 	await logger.init();
 
 	require('./lib/global').init();
 
-	if(!fs.existsSync('./cache.json')) {
-		fs.writeFileSync('./cache.json',"{}");
-	}
-	cache = require('./cache.json');
+	cache = {};
 
 	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
-		if (!await refPlayer(false)) {
-			return;
-		}
+		cache = await refPlayer();
+		
 	}
-	reloadCache();
-	while (cache['game_uid'] == undefined) {
-		logger.i('读取缓存失败，等待缓存写出到文件...');
-		await utils.randomSleepAsync();
-		reloadCache();
+	// reloadCache();
+	// while (cache['game_uid'] == undefined) {
+	// 	logger.i('读取缓存失败，等待缓存写出到文件...');
+	// 	await utils.randomSleepAsync();
+	// 	reloadCache();
+	// }
+	// app.get('/resin',async function (req, res) {
+	logger.i('[Get] /resin');
+	if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
+		logger.i('本地缓存未找到或已过期，从远程更新数据中...');
+		cache = await getDailyNote(cache['region'],cache['game_uid'],true);
+	} else {
+		logger.i('从本地缓存发送数据...');
 	}
-	app.get('/resin',async function (req, res) {
-		logger.i('[Get] /resin');
-		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
-			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(cache['region'],cache['game_uid'],false);
-		} else {
-			logger.i('从本地缓存发送数据...');
-		}
-		genFormatedResponse(res);
-	});
+	return genFormatedResponse();
+	// });
 
-	app.get('/resin/all',async function(req,res) {
-		logger.i('[Get] /resin/all');
-		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
-			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(cache['region'],cache['game_uid']);
-		} else {
-			logger.i('从本地缓存发送数据...');
-		}
-		res.status(200);
-		reloadCache();
-		res.send(cache);
-		logger.i('数据已发送');
-	});
-
-	app.get('/resin/force_refresh',async function(req,res) {
-		logger.i('[Get] /resin/force_refresh');
-		logger.i('开始强制刷新缓存...');
-		await getDailyNote(cache['region'],cache['game_uid']);
-		res.status(200);
-		reloadCache();
-		res.send('{"msg":"OK"}');
-		logger.i('强制刷新完成');
-	});
-
-
-	app.listen(config.port, '0.0.0.0', function () {
-		logger.i('初始化完成！开始在端口 ' + config.port + ' 监听请求！')
-	});
 }
 
-function reloadCache() {
-	// logger.i("重新载入缓存...");
-	delete require.cache[require.resolve('./cache.json')];
-	cache = require('./cache.json');
-}
-
-function genFormatedResponse(res) {
+function genFormatedResponse() {
 	var result = {};
-	reloadCache();
+	// reloadCache();
 	result['resin'] = cache['current_resin'] + ' / ' + cache['max_resin'];
 	if (parseInt(cache['resin_recovery_time']) > 0) {
 		var recHour = parseInt(cache['resin_recovery_time'] / 60 / 60);
@@ -116,9 +79,8 @@ function genFormatedResponse(res) {
 		result['expedition'] = result['expedition'] + ' (' + expHour + 'h ' + expMin + 'm ' + max_expedition_time + 's)'; 
 	}
 	result['last_update'] = cache['last_update_format'];
-	res.status(200);
-	res.send(JSON.stringify(result));
-	logger.i('数据已发送');
+	logger.i('数据已生成');
+	return JSON.stringify(result);
 }
 
-init();
+// init();
