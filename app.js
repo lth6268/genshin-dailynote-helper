@@ -5,21 +5,20 @@ const utils = require('./lib/utils.js');
 const logger = require('./lib/logger.js');
 const refPlayer = require('./lib/mihoyo/refPlayer.js');
 const getDailyNote = require('./lib/mihoyo/getDailyNote.js');
-
-const config = require('./config.json');
-const e = require('express');
+const config = require('./lib/config.js').config;
 
 var cache;
 require('./lib/global').init();
 
 const init = async function() {
 
+	await require('./lib/config.js').init();
 	await logger.init();
 
-	if(!fs.existsSync('/tmp/cache.json')) {
-		fs.writeFileSync('/tmp/cache.json',"{}");
+	if(!fs.existsSync(config.cache_file)) {
+		fs.writeFileSync(config.cache_file,"{}");
 	}
-	cache = require('/tmp/cache.json');
+	cache = require(config.cache_file);
 
 	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
@@ -67,15 +66,15 @@ const init = async function() {
 	});
 
 
-	app.listen(config.port, '0.0.0.0', function () {
-		logger.i('初始化完成！开始在端口 ' + config.port + ' 监听请求！')
+	app.listen(config.port, config.ip, function () {
+		logger.i('初始化完成！开始在 '+ config.ip + ":" + config.port + ' 监听请求！')
 	});
 }
 
 function reloadCache() {
 	// logger.i("重新载入缓存...");
-	delete require.cache[require.resolve('/tmp/cache.json')];
-	cache = require('/tmp/cache.json');
+	delete require.cache[require.resolve(config.cache_file)];
+	cache = require(config.cache_file);
 }
 
 function genFormatedResponse(res) {

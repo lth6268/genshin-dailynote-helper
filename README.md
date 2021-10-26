@@ -3,6 +3,27 @@
 此仓库为服务端实现
 
 ## Usage | 使用说明
+### Configs | 可用配置说明
+> 仅 `Cookie` 和 `is_SCF` 会从环境变量读取 优先级大于配置文件  
+> 仅需填写需要用到的配置项 其余配置项均有默认值  
+
+`config.json`
+```json
+{
+    "ip": "0.0.0.0", // 监听的ip
+    "port": 9000, // 监听的端口
+    "cache_time": 300, // 缓存过期时间（单位秒）
+    "cache_file": "/tmp/cache.json", // 缓存的文件位置
+    "cookie":" cookie string ", // Cookie
+    "game_biz": "hk4e_cn", // 游戏服务器 默认为国服
+    "is_SCF": false // 云函数模式 使用环境变量时KEY 为 'SCF'
+}
+```
+`Environment Variables` | `环境变量`
+```
+COOKIE=" cookie string "
+SCF=true|false
+```
 ### Local Server | 本地服务器
 - Clone 本仓库到本地
 - 安装运行库 `Node JS`
@@ -21,6 +42,7 @@ node app.js
 - - 环境使用`NodeJS 12`
 - - 代码选择`本地上传zip包` 上传刚刚下载的zip文件
 - - **`环境变量`中设置`COOKIE`的值为你的`cookie`**
+- - cookie需要为经过cookie.js处理过的完整cookie
 - - `高级设置`中修改`超时时间`为30秒
 - - 下图仅供参考
 - ![scf_1](./pic/scf_1.jpeg)
@@ -30,16 +52,14 @@ node app.js
 - 点击 `终端 -> 新终端`　在下方打开的终端运行下列指令
 ```bash
 cd src/genshin-dailynote-helper-main
+cp config.json.example config.json
+cp -f tencent_scf_bootstrap ./../scf_bootstrap
 yarn
 ```
-- 新建 `config.json` 并复制 `config.json.example` 的所有内容过来
 - 修改 `config.json` 的内容
 - - **端口根据不同云服务商修改 腾讯云默认为`9000`**
-- - 需要修改 `is_SCF` 为 `true`
-- - `cookie` 项已移交环境变量无需填写
-- 复制 `tencent_scf_bootstrap` 内容到最外层目录下的`scf_bootstrap`
-- - **同理 该文件仅为腾讯云适用 其他云服务商需要根据实际情况修改**
-- 点击`部署`
+- - 修改 `is_SCF` 为 `true`
+- 点击`部署`来提交修改
 - 根据下方的`访问路径`来访问服务
 - - 如路径为`https://aa.bb.cc/release/` 则访问 `https://aa.bb.cc/release/resin` 其他接口同理
 ## Notice | 注意事项
@@ -71,10 +91,18 @@ Cookie 获取参考
 - 访问 [https://user.mihoyo.com](https://user.mihoyo.com) 并登录账号 如果已经登陆请退出后重新登录
 - 获取 `cookie` 中 `login_ticket` 项
 - 确认已经复制好 `config.json`
-- 运行 `node cookie.js <login_ticket>`  注意：将 `<login_ticket>` 替换为上一步获取的值
+- 确认已经安装好 `nodejs` 和所需依赖库
+- 运行 `node cookie.js <login_ticket>` 
+- - 注意：将 `<login_ticket>` 替换为上一步获取的值
+- - 为了个人账号安全 请不要将cookie分享给任何人
 - 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
+[2021.10.26]
+- 重写配置文件读取系统
+- 增加了几个可配置项目
+- 完善了云函数部署指引
+
 [2021.10.25]
 - 添加云函数运行模式
 - 编写基础的腾讯云函数部署指引
