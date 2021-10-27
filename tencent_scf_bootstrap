@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-cd genshin-dailynote-helper-main
+cd genshin-dailynote-helper-1.1.1
 /var/lang/node12/bin/node app.js

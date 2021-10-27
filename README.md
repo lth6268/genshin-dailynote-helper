@@ -54,7 +54,7 @@ node app.js
 - 打开`函数代码`页面 等待云编辑器加载完成
 - 点击 `终端 -> 新终端`　在下方打开的终端运行下列指令
 ```bash
-cd src/genshin-dailynote-helper-main
+cd src/genshin-dailynote-helper-1.1.1
 cp config.json.example config.json
 rm -f ./../scf_bootstrap
 cp -f tencent_scf_bootstrap ./../scf_bootstrap
