@@ -22,7 +22,9 @@ const init = async function() {
 
 	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
-		await refPlayer();
+		if (!await refPlayer()) {
+			process.exit(-10003);
+		}
 	}
 	reloadCache();
 	while (cache['game_uid'] == undefined) {
