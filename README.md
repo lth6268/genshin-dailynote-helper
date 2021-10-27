@@ -41,8 +41,10 @@ node app.js
 - 创建一个`Web函数`模式的`云函数`
 - - 环境使用`NodeJS 12`
 - - 代码选择`本地上传zip包` 上传刚刚下载的zip文件
+- - **`环境变量`中设置`SCF`的值为`true`**
 - - **`环境变量`中设置`COOKIE`的值为你的`cookie`**
-- - cookie需要为经过cookie.js处理过的完整cookie
+- - 参考`COOKIE`格式`stuid=xxx;stoken=xxx;ltuid=xxx;ltoken=xxx;account_id=xxx;login_ticket=xxx;cookie_token=xxx;`
+- - **注意大小写！**
 - - `高级设置`中修改`超时时间`为30秒
 - - 下图仅供参考
 - ![scf_1](./pic/scf_1.jpeg)
@@ -53,12 +55,14 @@ node app.js
 ```bash
 cd src/genshin-dailynote-helper-main
 cp config.json.example config.json
+rm -f ./../scf_bootstrap
 cp -f tencent_scf_bootstrap ./../scf_bootstrap
 yarn
+
 ```
-- 修改 `config.json` 的内容
-- - **端口根据不同云服务商修改 腾讯云默认为`9000`**
-- - 修改 `is_SCF` 为 `true`
+> 可选操作：
+> - 创建并修改 `config.json` 的内容
+> - - 可选项参考上方配置文件说明
 - 点击`部署`来提交修改
 - 根据下方的`访问路径`来访问服务
 - - 如路径为`https://aa.bb.cc/release/` 则访问 `https://aa.bb.cc/release/resin` 其他接口同理
@@ -98,6 +102,10 @@ Cookie 获取参考
 - 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
+[2021.10.27]
+- 修复SCF模式读取优先级错误
+- 更改可能会卡住的云函数部署命令部分
+
 [2021.10.26]
 - 重写配置文件读取系统
 - 增加了几个可配置项目
