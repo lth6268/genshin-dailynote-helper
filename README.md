@@ -37,6 +37,7 @@ node app.js
 - 至此服务端部署完成 
 ### SCF | 云函数部署
 >　例子采用腾讯云函数部署，可自行部署到其他环境
+> [BV1DL411g7D2](https://www.bilibili.com/video/BV1DL411g7D2)
 - 从git下载`zip格式`代码到本地
 - 创建一个`Web函数`模式的`云函数`
 - - 环境使用`NodeJS 12`
