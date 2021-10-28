@@ -1,0 +1,27 @@
+name: Auto package for SCF
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps: 
+    - name: Check Out
+      uses: actions/checkout@main  
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.4.1
+
+    - name: Setup Node modules
+      run: |
+        npm install
+        zip -rg SCF-Package.zip ./lib/ ./node_modules ./app.js ./config.json.example ./LICENSE ./package.json ./README.md ./tencent_scf_bootstrap
+        
+    - name: Upload Package File
+      uses: actions/upload-artifact@v2
+      with:
+        name: SCF-Package
+        path: SCF-Package.zip
