@@ -2,7 +2,8 @@ name: Auto package for SCF
 on:
   push:
     branches:
-      - main
+      - main 
+  workflow_dispatch
 
 jobs:
   build:
