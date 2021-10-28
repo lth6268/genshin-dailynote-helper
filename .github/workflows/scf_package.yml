@@ -19,10 +19,17 @@ jobs:
     - name: Setup Node modules
       run: |
         npm install
-        zip -rg SCF-Package.zip ./lib/ ./node_modules ./app.js ./config.json.example ./LICENSE ./package.json ./README.md ./tencent_scf_bootstrap
-        
+
     - name: Upload Package File
       uses: actions/upload-artifact@v2
       with:
         name: SCF-Package
-        path: SCF-Package.zip
+        path: |
+          ./lib/
+          ./node_modules/
+          ./app.js
+          ./config.json.example
+          ./LICENSE
+          ./package.json
+          ./README.md
+          ./tencent_scf_bootstrap
