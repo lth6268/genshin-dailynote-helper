@@ -5,5 +5,6 @@
     "cache_file": "/tmp/cache.json",
     "cookie":" place your cookie here. if use SCF , place your cookie in env 'COOKIE' ",
     "game_biz": "hk4e_cn",
-    "is_SCF": false
+    "is_SCF": false,
+    "bh3_sign": false
 }

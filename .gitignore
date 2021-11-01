@@ -5,3 +5,4 @@ config.json
 data.txt
 package-lock.json
 yarn.lock
+test.js

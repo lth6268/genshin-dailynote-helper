@@ -1,11 +1,15 @@
+const _ = require('lodash');
 const express = require('express');
+const moment = require('moment');
 const app = express();
 const fs = require('fs');
 const utils = require('./lib/utils.js');
 const logger = require('./lib/logger.js');
 const refPlayer = require('./lib/mihoyo/refPlayer.js');
-const getDailyNote = require('./lib/mihoyo/getDailyNote.js');
+const getDailyNote = require('./lib/mihoyo/genshin/getDailyNote.js');
 const config = require('./lib/config.js').config;
+const getDailyReward = require('./lib/mihoyo/bh3/getDailyReward.js');
+const { rest } = require('lodash');
 
 var cache;
 require('./lib/global').init();
@@ -15,19 +19,21 @@ const init = async function() {
 	await require('./lib/config.js').init();
 	await logger.init();
 
-	if(!fs.existsSync(config.cache_file)) {
-		fs.writeFileSync(config.cache_file,"{}");
+	if(!fs.existsSync(config['cache_file'])) {
+		fs.writeFileSync(config['cache_file'],"{}");
 	}
-	cache = require(config.cache_file);
+	cache = require(config['cache_file']);
+	// logger.i(cache);
+	var genshinData = cache['userData'][config['game_biz']];
 
-	if (cache['region'] == undefined || cache['game_uid'] == undefined) {
+	if (genshinData['region'] == undefined || genshinData['game_uid'] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
 		if (!await refPlayer()) {
 			process.exit(-10003);
 		}
 	}
 	reloadCache();
-	while (cache['game_uid'] == undefined) {
+	while (genshinData['game_uid'] == undefined) {
 		logger.i('读取缓存失败，等待缓存写出到文件...');
 		await utils.randomSleepAsync();
 		reloadCache();
@@ -36,7 +42,7 @@ const init = async function() {
 		logger.i('[Get] /resin');
 		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
 			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(cache['region'],cache['game_uid']);
+			await getDailyNote(genshinData['region'],genshinData['game_uid']);
 		} else {
 			logger.i('从本地缓存发送数据...');
 		}
@@ -47,7 +53,7 @@ const init = async function() {
 		logger.i('[Get] /resin/all');
 		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
 			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(cache['region'],cache['game_uid']);
+			await getDailyNote(genshinData['region'],genshinData['game_uid']);
 		} else {
 			logger.i('从本地缓存发送数据...');
 		}
@@ -60,11 +66,40 @@ const init = async function() {
 	app.get('/resin/force_refresh',async function(req,res) {
 		logger.i('[Get] /resin/force_refresh');
 		logger.i('开始强制刷新缓存...');
-		await getDailyNote(cache['region'],cache['game_uid']);
+		await getDailyNote(genshinData['region'],genshinData['game_uid']);
 		res.status(200);
 		reloadCache();
 		res.send('{"msg":"OK"}');
 		logger.i('强制刷新完成');
+	});
+
+	app.get('/bh3/sign',async function(req,res) { 
+		logger.i('[Get] /bh3/sign');
+		if (!config.bh3_sign) {
+			logger.i("崩坏3签到模块未启用！");
+			res.status(200);
+			res.send("该模块未启用!");
+			return;
+		}
+		reloadCache();
+		if (!cache['bh3_signed'] || _.includes(moment(cache['bh3_last_sign'],"YYYYMMDD").fromNow(),'day')) {
+			var bh3Data = cache['userData']['bh3_cn'];
+			var retcode = await getDailyReward("ea20211026151532",bh3Data['game_uid'],bh3Data['region']);
+			if (retcode == -1) {
+				res.status(200);
+				res.send('{"msg":"签到失败！请查看日志来获取详细信息！"}')
+			}
+		} else {
+			logger.i('今日已经签到了');
+		}
+		res.status(200);
+		var bh3Reward = cache['bh3_sign_reward'];
+		if (bh3Reward == undefined) {
+			res.send('{"msg":"今天的签到不是由脚本执行的哦"}');
+			return;
+		}
+		var retmsg = '今日奖励：'+ bh3Reward['name'] + ' x ' + bh3Reward['cnt'];
+		res.send('{"msg":"'+retmsg+'"}');
 	});
 
 
@@ -75,8 +110,8 @@ const init = async function() {
 
 function reloadCache() {
 	// logger.i("重新载入缓存...");
-	delete require.cache[require.resolve(config.cache_file)];
-	cache = require(config.cache_file);
+	delete require.cache[require.resolve(config['cache_file'])];
+	cache = require(config['cache_file']);
 }
 
 function genFormatedResponse(res) {

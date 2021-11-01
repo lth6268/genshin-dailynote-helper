@@ -13,10 +13,11 @@
     "ip": "0.0.0.0", // 监听的ip
     "port": 9000, // 监听的端口
     "cache_time": 300, // 缓存过期时间（单位秒）
-    "cache_file": "/tmp/cache.json", // 缓存的文件位置
+    "cache_file": "/tmp/cache.json", // 缓存的文件位置 请使用绝对路径
     "cookie":" cookie string ", // Cookie
     "game_biz": "hk4e_cn", // 游戏服务器 默认为国服
-    "is_SCF": false // 云函数模式 使用环境变量时KEY 为 'SCF'
+    "is_SCF": false, // 云函数模式 使用环境变量时KEY 为 'SCF'
+    "bh3_sign": false
 }
 ```
 `Environment Variables` | `环境变量`
@@ -54,7 +55,7 @@ node app.js
 - 打开`函数代码`页面 等待云编辑器加载完成
 - 点击 `终端 -> 新终端`　在下方打开的终端运行下列指令
 ```bash
-cd src/genshin-dailynote-helper-1.1.1
+cd src/genshin-dailynote-helper-%version% # %version% 请替换为下载下来的文件夹名称 可以在云函数编辑器左侧看到
 cp config.json.example config.json
 rm -f ./../scf_bootstrap
 cp -f tencent_scf_bootstrap ./../scf_bootstrap
@@ -76,7 +77,7 @@ yarn
 - `/resin` 获取格式化每日数据
 - `/resin/all` 获取官方接口完整数据
 - `/resin/force_refresh` 强制刷新缓存数据 **(只会返回刷新是否成功！)**
-
+- `/bh3/sign` 崩坏3 `福利补给` 领取 **需要在配置文件手动启用**
 ## KWGT sample | KWGT 参考代码
 ![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
 [Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
@@ -105,6 +106,8 @@ Cookie 获取参考
 ## Update Log | 更新日志
 [2021.11.01]
 - 修复本地日志文件输出没有换行的问题
+- 增加崩坏3福利补给的获取查询 原神的在做了((( 三蹦子是隔壁项目有现成的轮子改个活动id就能用
+- 微调部分代码
 
 [2021.10.27]
 - 修复SCF模式读取优先级错误
