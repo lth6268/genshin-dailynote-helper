@@ -23,16 +23,15 @@ const init = async function() {
 		fs.writeFileSync(config['cache_file'],"{}");
 	}
 	cache = require(config['cache_file']);
-	// logger.i(cache);
-	var genshinData = cache['userData'][config['game_biz']];
 
-	if (genshinData['region'] == undefined || genshinData['game_uid'] == undefined) {
+	if (cache['userData'] == undefined || cache['userData'][config['game_biz']] == undefined) {
 		logger.i("缓存中未包含玩家信息，正在尝试获取...");
 		if (!await refPlayer()) {
 			process.exit(-10003);
 		}
 	}
 	reloadCache();
+	var genshinData = cache['userData'][config['game_biz']];
 	while (genshinData['game_uid'] == undefined) {
 		logger.i('读取缓存失败，等待缓存写出到文件...');
 		await utils.randomSleepAsync();
@@ -75,7 +74,7 @@ const init = async function() {
 
 	app.get('/bh3/sign',async function(req,res) { 
 		logger.i('[Get] /bh3/sign');
-		if (!config.bh3_sign) {
+		if (!config['bh3_sign']) {
 			logger.i("崩坏3签到模块未启用！");
 			res.status(200);
 			res.send("该模块未启用!");
