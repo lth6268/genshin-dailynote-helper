@@ -81,7 +81,7 @@ const init = async function() {
 			return;
 		}
 		reloadCache();
-		if (!cache['bh3_signed'] || _.includes(moment(cache['bh3_last_sign'],"YYYYMMDD").fromNow(),'day')) {
+		if (!cache['bh3_signed'] || cache['bh3_last_sign'] != moment().format('YYYYMMDD')) {
 			var bh3Data = cache['userData']['bh3_cn'];
 			var retcode = await getDailyReward("ea20211026151532",bh3Data['game_uid'],bh3Data['region']);
 			if (retcode == -1) {
