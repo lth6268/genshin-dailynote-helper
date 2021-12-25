@@ -80,12 +80,14 @@ yarn
 - `/resin/force_refresh` 强制刷新缓存数据 **(只会返回刷新是否成功！)**
 - `/bh3/sign` 崩坏3 `福利补给` 领取 **需要在配置文件手动启用**
 ## KWGT sample | KWGT 参考代码
-![Yife_Playte的小部件](./pic/kwgt_yife.jpg)
-[Yife_Playte的小部件](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
+- 1.[Yife_Playte的小部件(点击下载kwgt文件)](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
+![Yife_Playte的小部件预览图](./pic/kwgt_yife.jpg)
+- 2.[WinkeyLin的小部件(点击下载kwgt文件)](https://winkeylin.lanzoup.com/iXvjMxm7csh)  
+![Yife_Playte的小部件预览图](./pic/kwgt_winkeyLin.jpg)
+- 3.纯文字
 ![TextOnly](./pic/kwgt_text.jpg)  
-> **注意：仅包含文字部分 背景请自行设置**
-
-纯文本格式:
+> **注意：仅包含文字部分 背景请自行设置**  
+KWGT代码:
 ```
 原粹树脂：$wg(your.url/resin, json, .resin)$ 
 每日委托：$wg(your.url/resin, json, .task)$ 
@@ -105,6 +107,11 @@ Cookie 获取参考
 - 接下来程序将自动修改 `config.json` 的值 如果修改失败可以从输出中获取内容并手动修改
 
 ## Update Log | 更新日志
+[2021.12.25]
+- 更新树脂获取链接
+- 修复设置请求头时错误覆盖了Host
+- 增加一个小部件样式
+
 [2021.12.01]
 - 有小天才没有推送commit但我不说是谁（
 
