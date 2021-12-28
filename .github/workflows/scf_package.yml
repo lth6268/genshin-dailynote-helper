@@ -35,11 +35,12 @@ jobs:
           ./package.json
           ./README.md
           ./bootstrap
+          ./scf_bootstrap
 
     - name: Pack Serverless for release
       if: startsWith(github.ref, 'refs/tags/')
       run: |
-        zip -vr genshin-dailynote-helper-serverless.zip ./lib/ ./node_modules/ ./app.js ./config.json.example ./LICENSE ./package.json ./README.md ./bootstrap
+        zip -vr genshin-dailynote-helper-serverless.zip ./lib/ ./node_modules/ ./app.js ./config.json.example ./LICENSE ./package.json ./README.md ./bootstrap ./scf_bootstrap
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
