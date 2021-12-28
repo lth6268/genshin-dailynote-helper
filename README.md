@@ -33,16 +33,17 @@ SCF=true|false
 - 修改 `config.json` 的内容
 - 运行主程序
 ```bash
-yarn | npm install
+yarn | npm install //二者选其一即可
 node app.js
 ```
 - 至此服务端部署完成 
 ### SCF | 云函数部署
 >　例子采用腾讯云函数部署，可自行部署到其他环境
+>  阿里云请使用Custom Runtime
 > [BV1DL411g7D2](https://www.bilibili.com/video/BV1DL411g7D2)
-- 从git下载`zip格式`代码到本地
+- 从`Release`下载`genshin-dailynote-helper-serverless.zip`到本地
 - 创建一个`Web函数`模式的`云函数`
-- - 环境使用`NodeJS 12`
+- - 环境使用`NodeJS 12` (阿里云请使用`Custom Runtime`)
 - - 代码选择`本地上传zip包` 上传刚刚下载的zip文件
 - - **`环境变量`中设置`SCF`的值为`true`**
 - - **`环境变量`中设置`COOKIE`的值为你的`cookie`**
@@ -52,21 +53,11 @@ node app.js
 - - 下图仅供参考
 - ![scf_1](./pic/scf_1.jpeg)
 - ![scf_2](./pic/scf_2.jpeg)
-- 完成创建后会跳转到`函数配置`界面
-- 打开`函数代码`页面 等待云编辑器加载完成
-- 点击 `终端 -> 新终端`　在下方打开的终端运行下列指令
-```bash
-cd src/genshin-dailynote-helper-%version% # %version% 请替换为下载下来的文件夹名称 可以在云函数编辑器左侧看到
-cp config.json.example config.json
-rm -f ./../scf_bootstrap
-cp -f tencent_scf_bootstrap ./../scf_bootstrap
-yarn
-
-```
 > 可选操作：
 > - 创建并修改 `config.json` 的内容
 > - - 可选项参考上方配置文件说明
-- 点击`部署`来提交修改
+> - 点击`部署`来提交修改
+- 至此应该完成部署
 - 根据下方的`访问路径`来访问服务
 - - 如路径为`https://aa.bb.cc/release/` 则访问 `https://aa.bb.cc/release/resin` 其他接口同理
 ## Notice | 注意事项
