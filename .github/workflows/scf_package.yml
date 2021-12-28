@@ -23,6 +23,7 @@ jobs:
 
     - name: Upload Package File
       uses: actions/upload-artifact@v2
+      if: startsWith(github.ref, 'refs/heads/')
       with:
         name: genshin-dailynote-helper-serverless
         path: |
