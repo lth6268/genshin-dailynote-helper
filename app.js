@@ -41,7 +41,11 @@ const init = async function() {
 		logger.i('[Get] /resin');
 		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
 			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(genshinData['region'],genshinData['game_uid']);
+			let ret = await getDailyNote(genshinData['region'],genshinData['game_uid']);
+			if (ret != 0) {
+				genErrorResponse(res,"获取数据失败，请检查log输出");
+				return;
+			}
 		} else {
 			logger.i('从本地缓存发送数据...');
 		}
@@ -52,7 +56,11 @@ const init = async function() {
 		logger.i('[Get] /resin/all');
 		if (cache['last_update'] == undefined || Math.floor(Date.now() / 1000) - cache['last_update'] > config.cache_time) {
 			logger.i('本地缓存未找到或已过期，从远程更新数据中...');
-			await getDailyNote(genshinData['region'],genshinData['game_uid']);
+			let ret = await getDailyNote(genshinData['region'],genshinData['game_uid']);
+			if (ret != 0) {
+				genErrorResponse(res,"获取数据失败，请检查log输出");
+				return;
+			}
 		} else {
 			logger.i('从本地缓存发送数据...');
 		}
@@ -111,6 +119,14 @@ function reloadCache() {
 	// logger.i("重新载入缓存...");
 	delete require.cache[require.resolve(config['cache_file'])];
 	cache = require(config['cache_file']);
+}
+
+function genErrorResponse(res,msg) {
+	let result = {};
+	result['msg'] = msg;
+	result['retcode'] = -404;
+	res.status(200);
+	res.send(JSON.stringify(result));
 }
 
 function genFormatedResponse(res) {
