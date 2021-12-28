@@ -38,8 +38,8 @@ node app.js
 ```
 - 至此服务端部署完成 
 ### SCF | 云函数部署
->　例子采用腾讯云函数部署，可自行部署到其他环境  
->  阿里云请使用`Custom Runtime`  
+> 例子采用腾讯云函数部署，可自行部署到其他环境  
+> 阿里云请使用`Custom Runtime`  
 > [BV1DL411g7D2](https://www.bilibili.com/video/BV1DL411g7D2)
 - 从`Release`下载`genshin-dailynote-helper-serverless.zip`到本地
 - 创建一个`Web函数`模式的`云函数`
