@@ -110,6 +110,13 @@ const init = async function() {
 	});
 
 
+	app.get('/',async function(req,res) {
+		logger.i('[Get] /');
+		res.status(200);
+		reloadCache();
+		res.send('{"msg":"请访问正确的API!"}');
+	});
+
 	app.listen(config.port, config.ip, function () {
 		logger.i('初始化完成！开始在 '+ config.ip + ":" + config.port + ' 监听请求！')
 	});

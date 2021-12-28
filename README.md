@@ -43,7 +43,7 @@ node app.js
 > [BV1DL411g7D2](https://www.bilibili.com/video/BV1DL411g7D2)
 - 从`Release`下载`genshin-dailynote-helper-serverless.zip`到本地
 - 创建一个`Web函数`模式的`云函数`
-- - 环境使用`NodeJS 12` (阿里云请使用`Custom Runtime`)
+- - 环境使用`NodeJS 12` (阿里云请使用Custom Runtime`)
 - - 代码选择`本地上传zip包` 上传刚刚下载的zip文件
 - - **`环境变量`中设置`SCF`的值为`true`**
 - - **`环境变量`中设置`COOKIE`的值为你的`cookie`**
@@ -53,12 +53,13 @@ node app.js
 - - 下图仅供参考
 - ![scf_1](./pic/scf_1.jpeg)
 - ![scf_2](./pic/scf_2.jpeg)
-> 可选操作：
+- 点击`完成`来确认创建云函数
+> 可选操作：（建议有开发能力的用户使用）
+> - 在自动跳转的页面在线编辑代码
 > - 创建并修改 `config.json` 的内容
 > - - 可选项参考上方配置文件说明
-> - 点击`部署`来提交修改
-- 至此应该完成部署
-- 根据下方的`访问路径`来访问服务
+> 点击`部署`来提交修改
+- 至此应该完成部署 可以根据`访问路径`来访问服务了
 - - 如路径为`https://aa.bb.cc/release/` 则访问 `https://aa.bb.cc/release/resin` 其他接口同理
 ## Notice | 注意事项
 - 需要开启米游社－我的－我的角色－实时便笺（jian）功能
@@ -101,7 +102,9 @@ Cookie 获取参考
 [2021.12.28]
 - 修复请求异常时未正确处理
 - 更新云函数部署方式
-- 加入Docker打包参数（需手动build）
+- 加入Docker构建文件（需手动build）
+- 加入无path时返回值
+- 加入创建Release时由action自动生成Serverless所需文件
 
 [2021.12.25]
 - 更新树脂获取链接
