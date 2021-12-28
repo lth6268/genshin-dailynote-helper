@@ -117,9 +117,14 @@ const init = async function() {
 		res.send('{"msg":"请访问正确的API!"}');
 	});
 
-	app.listen(config.port, config.ip, function () {
+	let server = app.listen(config.port, config.ip, function () {
 		logger.i('初始化完成！开始在 '+ config.ip + ":" + config.port + ' 监听请求！')
 	});
+	if (config.is_SCF) {
+		server.timeout = 0; // never timeout
+		server.keepAliveTimeout = 0; // keepalive, never timeout
+		logger.i('云函数模式 服务端超时时间已设置为无限')
+	}
 }
 
 function reloadCache() {
