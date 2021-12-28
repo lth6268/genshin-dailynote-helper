@@ -38,12 +38,12 @@ node app.js
 ```
 - 至此服务端部署完成 
 ### SCF | 云函数部署
->　例子采用腾讯云函数部署，可自行部署到其他环境
->  阿里云请使用Custom Runtime
+>　例子采用腾讯云函数部署，可自行部署到其他环境  
+>  阿里云请使用`Custom Runtime`  
 > [BV1DL411g7D2](https://www.bilibili.com/video/BV1DL411g7D2)
 - 从`Release`下载`genshin-dailynote-helper-serverless.zip`到本地
 - 创建一个`Web函数`模式的`云函数`
-- - 环境使用`NodeJS 12` (阿里云请使用Custom Runtime`)
+- - 环境使用`NodeJS 12` (阿里云请使用`Custom Runtime`)
 - - 代码选择`本地上传zip包` 上传刚刚下载的zip文件
 - - **`环境变量`中设置`SCF`的值为`true`**
 - - **`环境变量`中设置`COOKIE`的值为你的`cookie`**
