@@ -73,7 +73,7 @@ node app.js
 - `/bh3/sign` 崩坏3 `福利补给` 领取 **需要在配置文件手动启用**
 ## KWGT sample | KWGT 参考代码
 - 1.[Yife_Playte的小部件(点击下载kwgt文件)](https://github.com/YifePlayte/genshin-dailynote-helper/blob/main/GenshinInfo.kwgt)  
-![Yife_Playte的小部件预览图](./pic/kwgt_yife.jpg)
+![Yife_Playte的小部件预览图](https://github.com/YifePlayte/genshin-dailynote-helper/raw/main/GenshinInfo/preset_thumb_landscape.jpg)
 - 2.[WinkeyLin的小部件(点击下载kwgt文件)](https://winkeylin.lanzoup.com/iXvjMxm7csh)  
 ![Yife_Playte的小部件预览图](./pic/kwgt_winkeyLin.jpg)
 - 3.纯文字
