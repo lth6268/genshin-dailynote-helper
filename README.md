@@ -2,6 +2,10 @@
 基于 KWGT 的 原神个人信息 显示  
 此仓库为服务端实现
 
+#此版本为修改版 | 基于 [Genshin DailyNote Helper | 原神每日助手] | 修改制成
+>原作者：Haocen2004
+>原开源地址：https://github.com/Haocen2004/genshin-dailynote-helper
+
 ## Usage | 使用说明
 ### Configs | 可用配置说明
 > 仅 `Cookie` 和 `is_SCF` 会从环境变量读取 优先级大于配置文件  
@@ -154,4 +158,5 @@ Cookie 获取参考
 @Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`  
 部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来  
 @YifePlayte 积极反馈bug 和 设计了好看的kwgt部件  
+@Haocen2004 原作者
 给予star支持的你  
