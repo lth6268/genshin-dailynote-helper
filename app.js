@@ -176,6 +176,15 @@ function genFormatedResponse(res) {
 		max_expedition_time = max_expedition_time - expMin * 60;
 		result['expedition'] = result['expedition'] + ' (' + expHour + 'h ' + expMin + 'm ' + max_expedition_time + 's)'; 
 	}
+	//洞天宝钱
+	result['home_coin'] = cache['current_home_coin'] + ' / ' + cache['max_home_coin'];
+	if (parseInt(cache['home_coin_recovery_time']) > 0) {
+		var recHour = parseInt(cache['home_coin_recovery_time'] / 60 / 60);
+		var recMin = parseInt((cache['home_coin_recovery_time'] - recHour * 60 * 60) / 60);
+		var recSec = cache['home_coin_recovery_time'] - recHour *60 * 60 - recMin * 60;
+		result['home_coin'] = result['home_coin'] + ' [' +  recHour +'h '+recMin +"m "+recSec +"s]";
+	}
+	//返回
 	result['last_update'] = cache['last_update_format'];
 	res.status(200);
 	res.send(JSON.stringify(result));
