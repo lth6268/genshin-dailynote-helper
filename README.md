@@ -2,7 +2,7 @@
 基于 KWGT 的 原神个人信息 显示  
 此仓库为服务端实现
 
-#此版本为修改版 | 基于 [Genshin DailyNote Helper | 原神每日助手] | 修改制成
+# 此版本为修改版 | 基于 [Genshin DailyNote Helper | 原神每日助手] | 修改制成
 >原作者：Haocen2004
 >原开源地址：https://github.com/Haocen2004/genshin-dailynote-helper
 
