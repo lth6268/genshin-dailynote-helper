@@ -154,6 +154,11 @@ Cookie 获取参考
 - 添加其他优秀的KWGT小部件地址
 - 添加cookie的获取说明
 - 开始记录更新日志
+
+[2022.04.21] For lth6268
+- 新增洞天宝钱数据
+- 新增质变仪数据
+
 ## Thanks | 感谢名单
 @Azure99 @2314933036 提供了 `DS` 字段的算法和所用的 `salt`  
 部分源码基于 `jianggaocheng/mihoyo-signin` 项目修改而来  
